@@ -104,7 +104,7 @@ function SelectSeat({ setSeatId }) {
 
   return (
     <div>
-      <h2>席番号を入力してください</h2>
+      <h2>席番号を入力してください（テスト用表示）</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
