@@ -18,6 +18,9 @@ mongoose.connect("mongodb+srv://ryota:Konikat@cluster0.2bu5olw.mongodb.net/order
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
+});
 
 //getメソッド
 app.get("/api/items", async (req, res) => {
