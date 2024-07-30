@@ -1,4 +1,4 @@
-/* 既存のスタイルに追加 */
+/* 既存のスタイルに追加または変更 */
 
 body,
 h1,
@@ -16,7 +16,7 @@ button {
 }
 
 body {
-  background-color: #f4f4f4;
+  background-color: #f0f8ff;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -24,7 +24,7 @@ body {
 }
 
 .container {
-  width: 100%;
+  width: 90%;
   max-width: 800px;
   margin: 20px auto;
   background: white;
@@ -133,6 +133,7 @@ h3.total-price {
 
 nav {
   position: relative;
+  background-color: #ffffff;
 }
 
 .hamburger {
@@ -140,6 +141,7 @@ nav {
   flex-direction: column;
   cursor: pointer;
   margin-bottom: 20px;
+  z-index: 20;
 }
 
 .hamburger .bar {
@@ -163,11 +165,13 @@ nav {
 
 .nav-links a {
   text-decoration: none;
-  color: #007BFF;
+  color: #00BFFF;
+  /* リンクの色を明るい青色に */
 }
 
 .nav-links a:hover {
-  color: #0056b3;
+  color: #1E90FF;
+  /* ホバー時の色を少し暗い青色に */
 }
 
 @media (max-width: 768px) {
@@ -179,6 +183,14 @@ nav {
     display: none;
     flex-direction: column;
     width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
   }
 
   .nav-links.open {
@@ -187,6 +199,19 @@ nav {
 
   .nav-links li {
     margin: 10px 0;
+    width: 80%;
+  }
+
+  .nav-links a {
+    color: #00BFFF;
+    font-size: 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+
+  .nav-links a:hover {
+    background-color: #1E90FF;
+    color: white;
   }
 
   .hamburger .bar.open:nth-child(1) {
@@ -268,4 +293,33 @@ nav {
 
 .confirm-button:hover {
   background-color: #0056b3;
+}
+
+.menu-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+}
+
+.menu-backdrop.open {
+  display: block;
+}
+
+.close-menu-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: white;
+  color: rgb(7, 0, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.close-menu-button:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }

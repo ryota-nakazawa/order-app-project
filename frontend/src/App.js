@@ -52,6 +52,10 @@ function App() {
     setMenuOpen(!menuOpen);
   };
 
+  const closeMenu = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <Router>
       <div className="container">
@@ -62,12 +66,14 @@ function App() {
             <div className={menuOpen ? "bar open" : "bar"}></div>
             <div className={menuOpen ? "bar open" : "bar"}></div>
           </div>
+          <div className={menuOpen ? "menu-backdrop open" : "menu-backdrop"} onClick={closeMenu}></div>
           <ul className={menuOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/" onClick={toggleMenu}>メニュー</Link></li>
             <li><Link to="/cart" onClick={toggleMenu}>カート</Link></li>
             <li><Link to="/history" onClick={toggleMenu}>注文履歴</Link></li>
             <li><Link to="/checkout" onClick={toggleMenu}>お会計</Link></li>
             <li><Link to="/select-seat" onClick={toggleMenu}>席番号の変更</Link></li>
+            <li className="close-menu-button" onClick={closeMenu}>閉じる</li>
           </ul>
         </nav>
         <Routes>
