@@ -5,15 +5,31 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const path = require('path');
 const port = process.env.PORT || 3001;
+const dotenv = require('dotenv');
 const Item = require("./models/itemSchema");
 const Order = require("./models/orderSchema");
 
 app.use(bodyParser.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://ryota:Konikat@cluster0.2bu5olw.mongodb.net/orders?retryWrites=true&w=majority&appName=Cluster0"
-).then(() => console.log("orderDB接続完了"))
+// .envファイルの読み込み
+dotenv.config({ debug: true });
+
+// console.log('MONGODB_URI:', process.env.MONGODB_URI);
+
+const mongoUri = process.env.MONGODB_URI;
+
+if (!mongoUri) {
+  throw new Error('MONGODB_URI is not defined. Please set the MONGODB_URI environment variable in your .env file.');
+}
+
+mongoose.connect(mongoUri)
+  .then(() => console.log("orderDB接続完了"))
   .catch((err) => console.log(err));
+
+// mongoose.connect("mongodb+srv://ryota:Konikat@cluster0.2bu5olw.mongodb.net/orders?retryWrites=true&w=majority&appName=Cluster0"
+// ).then(() => console.log("orderDB接続完了"))
+//   .catch((err) => console.log(err));
 
 
 app.use(express.static(path.join(__dirname, '../frontend/build')));
