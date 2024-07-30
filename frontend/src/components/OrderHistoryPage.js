@@ -86,6 +86,7 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
       <h1>注文履歴</h1>
       <div className="base-container">
         <p>本日の全ての売上がここに表示されます</p>
+        <p>-------------------------------------------------------------------------</p>
         {Object.keys(groupedOrders).length > 0 ? (
           Object.keys(groupedOrders).map(key => {
             const [seatId, sessionId] = key.split('-');

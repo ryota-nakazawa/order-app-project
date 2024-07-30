@@ -43,6 +43,7 @@ const OrdersPage = ({ items, addToCart }) => {
       <h2>メニュー</h2>
       <div className="base-container">
         <p>メニューの内容がここに表示されます</p>
+        <p>---------------------------------------------------------------------------------</p>
         <ul>
           {items.map((item) => (
             <li key={item._id}>
