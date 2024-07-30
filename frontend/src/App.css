@@ -154,7 +154,7 @@ nav {
   display: none;
   flex-direction: column;
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   z-index: 20;
 }
 
