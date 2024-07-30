@@ -40,22 +40,21 @@ const OrdersPage = ({ items, addToCart }) => {
 
   return (
     <div className="App">
-      <h1>Order App</h1>
-      <div className="orders-container">
-        <h2>Orders</h2>
+      <div className="base-container">
+        <h2>メニュー</h2>
         <ul>
           {items.map((item) => (
             <li key={item._id}>
               <h3>{item.name}</h3>
-              <p>Price: {item.price}</p>
-              <p>Description: {item.description}</p>
+              <p>値段: {item.price}</p>
+              <p>説明: {item.description}</p>
               <div>
-                <span> Quantity: {quantities[item._id]} </span>
+                <span> 個数: {quantities[item._id]} </span>
                 <button type="button" onClick={() => incrementQuantity(item._id)}>+</button>
                 <span> / </span>
                 <button type="button" onClick={() => decrementQuantity(item._id)}>-</button>
               </div>
-              <button type="button" onClick={() => handleAddToCart(item)}>Add to Cart</button>
+              <button type="button" onClick={() => handleAddToCart(item)}>カートに追加</button>
             </li>
           ))}
         </ul>

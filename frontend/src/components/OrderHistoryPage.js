@@ -84,28 +84,28 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
   return (
     <div className="App">
       <h1>注文履歴</h1>
-      <div className="order-history-container">
+      <div className="base-container">
         {Object.keys(groupedOrders).length > 0 ? (
           Object.keys(groupedOrders).map(key => {
             const [seatId, sessionId] = key.split('-');
             return (
               <div key={key} className="seat-group">
-                <h2>Seat ID: {seatId}</h2>
+                <h2>席番号: {seatId}</h2>
                 {/* <h3>Session ID: {sessionId}</h3> */}
                 <ul>
                   {groupedOrders[key].map((order, orderIndex) => (
                     <li key={orderIndex} className="order-item">
-                      <h3>Order ID: {order._id}</h3>
-                      <p>Created At: {new Date(order.createdAt).toLocaleString()}</p>
+                      <h3>注文番号: {order._id}</h3>
+                      <p>注文時間: {new Date(order.createdAt).toLocaleString()}</p>
                       <p>会計状況: {order.kaikei_status}</p>
                       <ul>
                         {order.items.map((item, itemIndex) => (
                           <li key={itemIndex} className="item">
                             <h4>{item.name}</h4>
-                            <p>Price: {item.price}</p>
-                            <p>Quantity: {item.quantity}</p>
-                            <p>Description: {item.description}</p>
-                            <p>Status: {item.status}</p>
+                            <p>値段: {item.price}</p>
+                            <p>個数: {item.quantity}</p>
+                            <p>説明: {item.description}</p>
+                            <p>提供状況: {item.status}</p>
                             {item.status !== '提供済' && (
                               <button onClick={() => updateItemStatus(order._id, item.item_id, item.status === '準備中' ? '提供済' : '準備中')}>
                                 {item.status === '準備中' ? 'Mark as Served' : 'Mark as Pending'}
@@ -121,9 +121,9 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
             );
           })
         ) : (
-          <p>No orders found</p>
+          <p>注文がありません</p>
         )}
-        <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+        <h2>本日の売上合計額: {totalPrice} 円</h2>
       </div>
     </div>
   );

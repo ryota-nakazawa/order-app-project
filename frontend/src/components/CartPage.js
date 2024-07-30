@@ -36,19 +36,19 @@ const CartPage = ({ cart, calculateTotal, seatId, sessionId, setCart, removeFrom
   return (
     <div className="App">
       <h1>カート</h1>
-      <div className="cart-container">
+      <div className="base-container">
         <ul>
           {cart.map((item, index) => (
             <li key={index} className="cart-item">
               <h3>{item.name}</h3>
-              <p>Price: {item.price}</p>
-              <p>Quantity: {item.quantity}</p>
-              <p>Description: {item.description}</p>
+              <p>値段: {item.price}</p>
+              <p>個数: {item.quantity}</p>
+              <p>説明: {item.description}</p>
               <button onClick={() => handleRemoveFromCart(index)}>削除</button>
             </li>
           ))}
         </ul>
-        <h3 className="total-price">Total Price: ${calculateTotal()}</h3>
+        <h3 className="total-price">合計金額: {calculateTotal()} 円</h3>
         <button onClick={handleSaveCart}>注文確定</button>
       </div>
     </div>

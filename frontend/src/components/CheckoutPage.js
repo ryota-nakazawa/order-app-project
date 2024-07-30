@@ -57,29 +57,29 @@ const CheckoutPage = ({ seatId, sessionId }) => {
   return (
     <div className="App">
       <h1>お会計</h1>
-      <div className="order-history-container">
+      <div className="base-container">
         {orders.length > 0 ? (
           <div>
             <ul>
               {orders.map((order, orderIndex) => (
                 <li key={orderIndex} className={`order-item ${order.kaikei_status === '会計済み' ? 'paid' : ''}`}>
-                  <h3>Order ID: {order._id}</h3>
+                  <h3>注文番号: {order._id}</h3>
                   <p>席番号：{order.seatId}</p>
                   <p>会計ステータス: {order.kaikei_status}</p>
                   <ul>
                     {order.items.map((item, itemIndex) => (
                       <li key={itemIndex} className="item">
                         <h4>{item.name}</h4>
-                        <p>Price: {item.price}</p>
-                        <p>Quantity: {item.quantity}</p>
-                        <p>Description: {item.description}</p>
+                        <p>値段: {item.price}</p>
+                        <p>個数: {item.quantity}</p>
+                        <p>説明: {item.description}</p>
                       </li>
                     ))}
                   </ul>
                 </li>
               ))}
             </ul>
-            <h2>Total Price: ${totalPrice.toFixed(2)}</h2>
+            <h2>合計金額: {totalPrice} 円</h2>
             {/* 会計ステータスが "会計済み" でない場合にボタンを表示 */}
             {orders.every(order => order.kaikei_status === '会計済み') ? (
               <p>すべての注文が会計済みです</p>
@@ -88,7 +88,7 @@ const CheckoutPage = ({ seatId, sessionId }) => {
             )}
           </div>
         ) : (
-          <p>No orders found for seat {seatId}</p>
+          <p> 座番号{seatId}にはまだ注文がありません</p>
         )}
       </div>
     </div>
