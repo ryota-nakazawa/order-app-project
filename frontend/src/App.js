@@ -7,22 +7,12 @@ import OrderHistoryPage from './components/OrderHistoryPage';
 import CheckoutPage from './components/CheckoutPage';
 import { v4 as uuidv4 } from 'uuid';
 
-
 function App() {
   const [items, setItems] = useState([]);
   const [cart, setCart] = useState([]);
-  // const [sessionId, setSessionId] = useState(() => {
-  //   const savedSessionId = localStorage.getItem('sessionId');
-  //   return savedSessionId || uuidv4();
-  // });
   const [seatId, setSeatId] = useState('');
   const sessionId = "2";
   const [menuOpen, setMenuOpen] = useState(false);
-
-
-  // useEffect(() => {
-  //   localStorage.setItem('sessionId', sessionId);
-  // }, [sessionId]);
 
   const fetchOrders = () => {
     fetch('/api/items')
@@ -36,7 +26,6 @@ function App() {
   }, []);
 
   const addToCart = (item) => {
-    // console.log(item);
     setCart([...cart, item]);
   };
 
@@ -96,14 +85,25 @@ function App() {
 
 function SelectSeat({ setSeatId }) {
   const [inputValue, setInputValue] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
-    setInputValue(e.target.value);
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) { // 半角数字のみを認める正規表現
+      setInputValue(value);
+      setErrorMessage('');
+    } else {
+      setErrorMessage('半角数字のみ入力してください');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (inputValue === '') {
+      setErrorMessage('席番号を入力してください');
+      return;
+    }
     setSeatId(inputValue);
     navigate('/');
   };
@@ -119,10 +119,10 @@ function SelectSeat({ setSeatId }) {
           placeholder="席番号を入力"
         />
         <button type="submit">確定</button>
+        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       </form>
     </div>
   );
 }
-
 
 export default App;

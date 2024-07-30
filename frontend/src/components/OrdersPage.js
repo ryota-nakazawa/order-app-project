@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const OrdersPage = ({ items, addToCart }) => {
   // 商品ごとの数量を管理するための状態を追加
   const [quantities, setQuantities] = useState({});
+  const [message, setMessage] = useState(''); // メッセージを表示するための状態
 
   // 各アイテムの初期値を1にする
   useEffect(() => {
@@ -36,6 +37,8 @@ const OrdersPage = ({ items, addToCart }) => {
     // console.log(quantity);
     // console.log(item);
     addToCart({ ...item, quantity });
+    setMessage(`${item.name}をカートに追加しました`);
+    setTimeout(() => setMessage(''), 3000); // 3秒後にメッセージを消す
   };
 
   return (
@@ -44,6 +47,7 @@ const OrdersPage = ({ items, addToCart }) => {
       <div className="base-container">
         <p>メニューの内容がここに表示されます</p>
         <p>-------------------------------------------------------------------------</p>
+        {message && <div className="popup-message">{message}</div>} {/* ポップアップメッセージを表示 */}
         <ul>
           {items.map((item) => (
             <li key={item._id}>
