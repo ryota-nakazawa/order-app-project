@@ -39,7 +39,7 @@ const CartPage = ({ cart, calculateTotal, seatId, sessionId, setCart, removeFrom
       <div className="base-container">
 
         <p>現在のカートの中身がここに表示されます</p>
-        <p>-------------------------------------------------------------------------</p>
+        <p>------------------------------------------------------------------------</p>
         <ul>
           {cart.map((item, index) => (
             <li key={index}>

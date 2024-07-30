@@ -30,7 +30,6 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
       return acc;
     }, {});
 
-    // キーを数値の昇順にソートする
     const sortedKeys = Object.keys(grouped).sort((a, b) => {
       const seatIdA = parseInt(a.split('-')[0], 10);
       const seatIdB = parseInt(b.split('-')[0], 10);
@@ -94,15 +93,17 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
       <div className="base-container">
         <div className="date-picker-container">
           <label htmlFor="date-picker">日付を選択してください: </label>
-          <DatePicker
-            id="date-picker"
-            selected={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            dateFormat="yyyy/MM/dd"
-          />
+          <div className="date-picker-wrapper">
+            <DatePicker
+              id="date-picker"
+              selected={selectedDate}
+              onChange={(date) => setSelectedDate(date)}
+              dateFormat="yyyy/MM/dd"
+            />
+          </div>
           <button onClick={handleShowAll}>全期間の売上を表示</button>
         </div>
-        <p>-------------------------------------------------------------------------</p>
+        <p>------------------------------------------------------------------------</p>
         {Object.keys(groupedOrders).length > 0 ? (
           Object.keys(groupedOrders).map(key => {
             const [seatId, sessionId] = key.split('-');

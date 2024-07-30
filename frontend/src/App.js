@@ -1,10 +1,12 @@
 import './App.css';
+//import './components/SelectSeat.css'; // CSSファイルをインポート
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import OrdersPage from './components/OrdersPage';
 import CartPage from './components/CartPage';
 import OrderHistoryPage from './components/OrderHistoryPage';
 import CheckoutPage from './components/CheckoutPage';
+import SelectSeat from './components/SelectSeat';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
@@ -48,7 +50,10 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <h1>注文アプリ</h1>
+        <div className="header">
+          <h1>注文アプリ</h1>
+          <img src="/images/rabbit.png" alt="Rabbit" />
+        </div>
         <nav>
           <div className="hamburger" onClick={toggleMenu}>
             <div className={menuOpen ? "bar open" : "bar"}></div>
@@ -80,48 +85,6 @@ function App() {
         </Routes>
       </div>
     </Router>
-  );
-}
-
-function SelectSeat({ setSeatId }) {
-  const [inputValue, setInputValue] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    if (/^\d*$/.test(value)) { // 半角数字のみを認める正規表現
-      setInputValue(value);
-      setErrorMessage('');
-    } else {
-      setErrorMessage('半角数字のみ入力してください');
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue === '') {
-      setErrorMessage('席番号を入力してください');
-      return;
-    }
-    setSeatId(inputValue);
-    navigate('/');
-  };
-
-  return (
-    <div>
-      <h2>席番号を入力してください</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="席番号を入力"
-        />
-        <button type="submit">確定</button>
-        {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      </form>
-    </div>
   );
 }
 

@@ -46,7 +46,7 @@ const OrdersPage = ({ items, addToCart }) => {
       <h2>メニュー</h2>
       <div className="base-container">
         <p>メニューの内容がここに表示されます</p>
-        <p>-------------------------------------------------------------------------</p>
+        <p>------------------------------------------------------------------------</p>
         {message && <div className="popup-message">{message}</div>} {/* ポップアップメッセージを表示 */}
         <ul>
           {items.map((item) => (

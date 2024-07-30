@@ -16,11 +16,29 @@ button {
 }
 
 body {
-  background-color: #f0f8ff;
-  display: flex;
+  background-color: #fff5f0;
+  /* display: flex; */
+  width: 90%;
+  margin: 20px auto;
   justify-content: center;
   align-items: flex-start;
   height: 100vh;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.header h1 {
+  margin-right: 10px;
+}
+
+.header img {
+  height: 70px;
+  width: auto;
 }
 
 .container {
@@ -131,6 +149,30 @@ h3.total-price {
   background: #fff;
 }
 
+/* .date-picker-container {
+  position: relative;
+  z-index: 1;
+  background-color: white;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+} */
+
+.nav-links.open~.date-picker-container {
+  z-index: 1;
+}
+
+.date-picker-wrapper {
+  position: relative;
+  z-index: 0;
+}
+
+.menu-backdrop.open~.date-picker-container,
+.menu-backdrop.open~.date-picker-wrapper {
+  pointer-events: none;
+}
+
 .popup-message {
   position: fixed;
   top: 20px;
@@ -148,6 +190,7 @@ h3.total-price {
 nav {
   position: fixed;
   background-color: #ffffff;
+  z-index: 20;
 }
 
 .hamburger {
@@ -155,14 +198,14 @@ nav {
   flex-direction: column;
   cursor: pointer;
   margin-bottom: 5px;
-  z-index: 20;
+  z-index: 10;
 }
 
 .hamburger .bar {
-  width: 25px;
-  height: 3px;
+  width: 35px;
+  height: 2px;
   background-color: #333;
-  margin: 4px 0;
+  margin: 5px 0;
   transition: 0.4s;
 }
 
