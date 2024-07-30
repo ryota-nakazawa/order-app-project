@@ -146,7 +146,7 @@ h3.total-price {
 }
 
 nav {
-  position: relative;
+  position: fixed;
   background-color: #ffffff;
 }
 
@@ -170,7 +170,7 @@ nav {
   display: flex;
   list-style-type: none;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 0;
 }
 
 .nav-links li {

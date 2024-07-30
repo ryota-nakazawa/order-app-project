@@ -29,7 +29,20 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
       acc[key].push(order);
       return acc;
     }, {});
-    setGroupedOrders(grouped);
+
+    // キーを数値の昇順にソートする
+    const sortedKeys = Object.keys(grouped).sort((a, b) => {
+      const seatIdA = parseInt(a.split('-')[0], 10);
+      const seatIdB = parseInt(b.split('-')[0], 10);
+      return seatIdA - seatIdB;
+    });
+
+    const sortedGroupedOrders = {};
+    sortedKeys.forEach(key => {
+      sortedGroupedOrders[key] = grouped[key];
+    });
+
+    setGroupedOrders(sortedGroupedOrders);
   };
 
   const calculateTotalPrice = (orders) => {
@@ -75,10 +88,6 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
     fetchOrderHistory(new Date(), true);
   };
 
-  const handleShowSelectedDate = () => {
-    fetchOrderHistory(selectedDate, false);
-  };
-
   return (
     <div className="App">
       <h1>注文履歴</h1>
@@ -91,8 +100,6 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
             onChange={(date) => setSelectedDate(date)}
             dateFormat="yyyy/MM/dd"
           />
-          {/* <button onClick={handleShowSelectedDate}>選択した日付の売上を表示</button>
-          <p></p> */}
           <button onClick={handleShowAll}>全期間の売上を表示</button>
         </div>
         <p>-------------------------------------------------------------------------</p>
