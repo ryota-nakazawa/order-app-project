@@ -265,6 +265,53 @@ nav {
   p {
     font-size: 14px;
   }
+
+  .menu-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .menu-backdrop.open {
+    display: block;
+    opacity: 1;
+  }
+
+  .close-menu-button {
+    display: block;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: white;
+    color: rgb(7, 0, 0);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 20;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .close-menu-button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (min-width: 769px) {
+  .menu-backdrop {
+    display: none;
+  }
+
+  .close-menu-button {
+    display: none;
+  }
 }
 
 .remove-button,
@@ -293,33 +340,4 @@ nav {
 
 .confirm-button:hover {
   background-color: #0056b3;
-}
-
-.menu-backdrop {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 5;
-}
-
-.menu-backdrop.open {
-  display: block;
-}
-
-.close-menu-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: white;
-  color: rgb(7, 0, 0);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.close-menu-button:hover {
-  background-color: rgba(0, 0, 0, 0.2);
 }
