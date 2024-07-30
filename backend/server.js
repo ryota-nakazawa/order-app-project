@@ -51,11 +51,19 @@ app.get("/api/items", async (req, res) => {
 
 app.get('/api/orders', async (req, res) => {
   try {
-    const orders = await Order.find();
-    res.status(200).json({ message: '注文履歴取得しました', orders });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: '注文履歴取得失敗しました' });
+    const { date } = req.query;
+    let orders;
+    if (date) {
+      const startDate = new Date(date);
+      const endDate = new Date(date);
+      endDate.setDate(endDate.getDate() + 1);
+      orders = await Order.find({ createdAt: { $gte: startDate, $lt: endDate } });
+    } else {
+      orders = await Order.find();
+    }
+    res.json({ orders });
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching orders', error });
   }
 });
 

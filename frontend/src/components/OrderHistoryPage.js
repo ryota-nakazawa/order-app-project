@@ -1,25 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 const OrderHistoryPage = ({ seatId, sessionId }) => {
   const [orders, setOrders] = useState([]);
   const [groupedOrders, setGroupedOrders] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
-  // const fetchOrderHistory = async (seatId) => {
-  //   try {
-  //     const response = await fetch(`/api/orders/${seatId}`);
-  //     const data = await response.json();
-  //     setOrders(data.orders);
-  //     calculateTotalPrice(data.orders);
-  //     // console.log(data.orders); // 確認のためのログ出力
-  //   } catch (error) {
-  //     console.error('Error fetching order history:', error);
-  //   }
-  // };
-
-  const fetchOrderHistory = async () => {
+  const fetchOrderHistory = async (date = new Date(), all = false) => {
     try {
-      const response = await fetch(`/api/orders`);
+      const response = await fetch(`/api/orders${all ? '' : `?date=${date.toISOString().split('T')[0]}`}`);
       const data = await response.json();
       setOrders(data.orders);
       groupOrdersBySeatAndSessionId(data.orders);
@@ -61,7 +52,6 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
         body: JSON.stringify({ status }),
       });
       const updatedOrder = await response.json();
-      // console.log(updatedOrder);
 
       setOrders(prevOrders =>
         prevOrders.map(order =>
@@ -74,18 +64,37 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
   };
 
   useEffect(() => {
-    fetchOrderHistory(seatId);
-  }, [seatId]);
+    fetchOrderHistory(selectedDate, false);
+  }, [selectedDate]);
 
   useEffect(() => {
     groupOrdersBySeatAndSessionId(orders);
   }, [orders]);
 
+  const handleShowAll = () => {
+    fetchOrderHistory(new Date(), true);
+  };
+
+  const handleShowSelectedDate = () => {
+    fetchOrderHistory(selectedDate, false);
+  };
+
   return (
     <div className="App">
       <h1>注文履歴</h1>
       <div className="base-container">
-        <p>本日の全ての売上がここに表示されます</p>
+        <div className="date-picker-container">
+          <label htmlFor="date-picker">日付を選択してください: </label>
+          <DatePicker
+            id="date-picker"
+            selected={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            dateFormat="yyyy/MM/dd"
+          />
+          {/* <button onClick={handleShowSelectedDate}>選択した日付の売上を表示</button>
+          <p></p> */}
+          <button onClick={handleShowAll}>全期間の売上を表示</button>
+        </div>
         <p>-------------------------------------------------------------------------</p>
         {Object.keys(groupedOrders).length > 0 ? (
           Object.keys(groupedOrders).map(key => {
@@ -93,7 +102,6 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
             return (
               <div key={key} className="seat-group">
                 <h2>席番号: {seatId}</h2>
-                {/* <h3>Session ID: {sessionId}</h3> */}
                 <ul>
                   {groupedOrders[key].map((order, orderIndex) => (
                     <li key={orderIndex} className="order-item">
@@ -125,7 +133,7 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
         ) : (
           <p>注文がありません</p>
         )}
-        <h2>本日の売上合計額: {totalPrice} 円</h2>
+        <h2>売上合計額: {totalPrice} 円</h2>
       </div>
     </div>
   );
