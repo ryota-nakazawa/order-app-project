@@ -110,7 +110,7 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
                             <p>提供状況: {item.status}</p>
                             {item.status !== '提供済' && (
                               <button onClick={() => updateItemStatus(order._id, item.item_id, item.status === '準備中' ? '提供済' : '準備中')}>
-                                {item.status === '準備中' ? 'Mark as Served' : 'Mark as Pending'}
+                                {item.status === '準備中' ? '提供済みに変更' : 'Mark as Pending'}
                               </button>
                             )}
                           </li>
