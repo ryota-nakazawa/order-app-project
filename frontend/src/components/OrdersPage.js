@@ -40,8 +40,9 @@ const OrdersPage = ({ items, addToCart }) => {
 
   return (
     <div className="App">
+      <h2>メニュー</h2>
       <div className="base-container">
-        <h2>メニュー</h2>
+        <p>メニューの内容がここに表示されます</p>
         <ul>
           {items.map((item) => (
             <li key={item._id}>
