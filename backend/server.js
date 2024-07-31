@@ -27,16 +27,7 @@ mongoose.connect(mongoUri)
   .then(() => console.log("orderDB接続完了"))
   .catch((err) => console.log(err));
 
-// mongoose.connect("mongodb+srv://ryota:Konikat@cluster0.2bu5olw.mongodb.net/orders?retryWrites=true&w=majority&appName=Cluster0"
-// ).then(() => console.log("orderDB接続完了"))
-//   .catch((err) => console.log(err));
-
-
 app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
-// });
 
 //getメソッド
 app.get("/api/items", async (req, res) => {
