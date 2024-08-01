@@ -46,12 +46,13 @@ app.get('/api/orders', async (req, res) => {
     let orders;
     if (date) {
       const startDate = new Date(date);
+      console.log(startDate);
       // 日本標準時（JST）をUTCに変換
-      const utcStartDate = new Date(startDate.getTime() - (9 * 60 * 60 * 1000)); // JSTはUTC+9
+      const utcStartDate = new Date(startDate.getTime() + (15 * 60 * 60 * 1000));
       const utcEndDate = new Date(utcStartDate.getTime());
       utcEndDate.setDate(utcEndDate.getDate() + 1);
-      // console.log(utcStartDate);
-      // console.log(utcEndDate);
+      console.log(utcStartDate);
+      console.log(utcEndDate);
       orders = await Order.find({ createdAt: { $gte: utcStartDate, $lt: utcEndDate } });
     } else {
       orders = await Order.find();
