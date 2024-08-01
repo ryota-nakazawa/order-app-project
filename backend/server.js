@@ -46,9 +46,13 @@ app.get('/api/orders', async (req, res) => {
     let orders;
     if (date) {
       const startDate = new Date(date);
-      const endDate = new Date(date);
-      endDate.setDate(endDate.getDate() + 1);
-      orders = await Order.find({ createdAt: { $gte: startDate, $lt: endDate } });
+      // 日本標準時（JST）をUTCに変換
+      const utcStartDate = new Date(startDate.getTime() - (9 * 60 * 60 * 1000)); // JSTはUTC+9
+      const utcEndDate = new Date(utcStartDate.getTime());
+      utcEndDate.setDate(utcEndDate.getDate() + 1);
+      // console.log(utcStartDate);
+      // console.log(utcEndDate);
+      orders = await Order.find({ createdAt: { $gte: utcStartDate, $lt: utcEndDate } });
     } else {
       orders = await Order.find();
     }
@@ -57,21 +61,6 @@ app.get('/api/orders', async (req, res) => {
     res.status(500).json({ message: 'Error fetching orders', error });
   }
 });
-
-// app.get('/api/orders/:seatId', async (req, res) => {
-//   try {
-//     const { seatId } = req.params;
-//     console.log(seatId);
-//     const orders = await Order.find({ seatId: seatId });
-//     if (!orders) {
-//       return res.status(404).json({ message: '注文が見つかりませんでした' });
-//     }
-//     res.status(200).json({ message: '注文を取得しました', orders });
-//   } catch (err) {
-//     console.log(err);
-//     res.status(500).json({ message: '注文取得失敗しました' });
-//   }
-// });
 
 app.get('/api/orders/:seatId/:kaikei_status', async (req, res) => {
   const { seatId, kaikei_status } = req.params;
