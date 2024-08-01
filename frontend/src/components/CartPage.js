@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './Cart.css';
 
 const CartPage = ({ cart, calculateTotal, seatId, sessionId, setCart, removeFromCart }) => {
   const [cartId, setCartId] = useState(null);

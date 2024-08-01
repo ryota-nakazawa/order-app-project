@@ -1,0 +1,42 @@
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007BFF;
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.remove-button,
+.confirm-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button {
+  background-color: #FF5733;
+  color: white;
+}
+
+.remove-button:hover {
+  background-color: #C70039;
+}
+
+.confirm-button {
+  background-color: #007BFF;
+  color: white;
+}
+
+.confirm-button:hover {
+  background-color: #0056b3;
+}

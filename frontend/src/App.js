@@ -1,5 +1,6 @@
 import './App.css';
-//import './components/SelectSeat.css'; // CSSファイルをインポート
+import './components/Navigation.css';
+import './components/Button.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import OrdersPage from './components/OrdersPage';
@@ -7,6 +8,8 @@ import CartPage from './components/CartPage';
 import OrderHistoryPage from './components/OrderHistoryPage';
 import CheckoutPage from './components/CheckoutPage';
 import SelectSeat from './components/SelectSeat';
+import Header from './components/Header'; // Headerをインポート
+import HamburgerMenu from './components/HamburgerMenu'; // HamburgerMenuをインポート
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
@@ -50,17 +53,9 @@ function App() {
   return (
     <Router>
       <div className="container">
-        <div className="header">
-          <h1>注文アプリ</h1>
-          <img src="/images/rabbit.png" alt="Rabbit" />
-        </div>
+        <Header />
         <nav>
-          <div className="hamburger" onClick={toggleMenu}>
-            <div className={menuOpen ? "bar open" : "bar"}></div>
-            <div className={menuOpen ? "bar open" : "bar"}></div>
-            <div className={menuOpen ? "bar open" : "bar"}></div>
-          </div>
-          <div className={menuOpen ? "menu-backdrop open" : "menu-backdrop"} onClick={closeMenu}></div>
+          <HamburgerMenu toggleMenu={toggleMenu} menuOpen={menuOpen} closeMenu={closeMenu} />
           <ul className={menuOpen ? "nav-links open" : "nav-links"}>
             <li><Link to="/" onClick={toggleMenu}>メニュー</Link></li>
             <li><Link to="/cart" onClick={toggleMenu}>カート</Link></li>
