@@ -38,7 +38,7 @@ const OrdersPage = ({ items, addToCart }) => {
     // console.log(item);
     addToCart({ ...item, quantity });
     setMessage(`${item.name}をカートに追加しました`);
-    setTimeout(() => setMessage(''), 3000); // 3秒後にメッセージを消す
+    setTimeout(() => setMessage(''), 1000); // 3秒後にメッセージを消す
   };
 
   return (
