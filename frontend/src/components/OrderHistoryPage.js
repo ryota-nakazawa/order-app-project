@@ -3,19 +3,22 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './OrderHistoryPage.css';
 
-const OrderHistoryPage = ({ seatId, sessionId }) => {
-  const [orders, setOrders] = useState([]);
+const OrderHistoryPage = ({ seatId, sessionId, orders: initialOrders = [] }) => {
+  const [orders, setOrders] = useState(initialOrders);
   const [groupedOrders, setGroupedOrders] = useState({});
   const [totalPrice, setTotalPrice] = useState(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   const fetchOrderHistory = async (date = new Date(), all = false) => {
     try {
-      const response = await fetch(`/api/orders${all ? '' : `?date=${date.toISOString().split('T')[0]}`}`);
-      const data = await response.json();
-      setOrders(data.orders);
-      groupOrdersBySeatAndSessionId(data.orders);
-      calculateTotalPrice(data.orders);
+      // ダミーデータを使用するため、ここではordersをそのまま使用
+      const filteredOrders = all ? initialOrders : initialOrders.filter(order => {
+        const orderDate = new Date(order.createdAt);
+        return orderDate.toDateString() === date.toDateString();
+      });
+      setOrders(filteredOrders);
+      groupOrdersBySeatAndSessionId(filteredOrders);
+      calculateTotalPrice(filteredOrders);
     } catch (error) {
       console.error('Error fetching order history:', error);
     }
@@ -57,20 +60,22 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
 
   const updateItemStatus = async (orderId, itemId, status) => {
     try {
-      const response = await fetch(`/api/orders/${orderId}/items/${itemId}/status`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ status }),
+      const updatedOrders = orders.map(order => {
+        if (order._id === orderId) {
+          return {
+            ...order,
+            items: order.items.map(item => {
+              if (item.item_id === itemId) {
+                return { ...item, status };
+              }
+              return item;
+            })
+          };
+        }
+        return order;
       });
-      const updatedOrder = await response.json();
-
-      setOrders(prevOrders =>
-        prevOrders.map(order =>
-          order._id === updatedOrder.order._id ? updatedOrder.order : order,
-        )
-      );
+      setOrders(updatedOrders);
+      groupOrdersBySeatAndSessionId(updatedOrders);
     } catch (error) {
       console.error('Error updating item status:', error);
     }

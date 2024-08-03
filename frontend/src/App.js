@@ -33,8 +33,46 @@ const dummyItems = [
   },
 ];
 
+const dummyOrders = [
+  {
+    _id: 'order1',
+    seatId: '1',
+    sessionId: 'session1',
+    items: [
+      {
+        name: 'ラーメン',
+        price: 800,
+        description: '美味しいラーメンです。',
+        status: '準備中',
+        item_id: 'item1',
+        quantity: 1,
+      },
+    ],
+    createdAt: new Date(),
+    kaikei_status: '未会計',
+  },
+  {
+    _id: 'order2',
+    seatId: '2',
+    sessionId: 'session2',
+    items: [
+      {
+        name: '寿司',
+        price: 1200,
+        description: '新鮮なネタの寿司です。',
+        status: '準備中',
+        item_id: 'item2',
+        quantity: 2,
+      },
+    ],
+    createdAt: new Date(),
+    kaikei_status: '未会計',
+  },
+];
+
 function App() {
   const [items, setItems] = useState(dummyItems);
+  const [orders, setOrders] = useState(dummyOrders);
   const [cart, setCart] = useState([]);
   const [seatId, setSeatId] = useState('');
   const sessionId = "2";
@@ -42,11 +80,8 @@ function App() {
 
   const fetchOrders = () => {
     // 本来はAPIからデータを取得するが、ここではダミーデータを使用する
-    // fetch('/api/items')
-    //   .then((res) => res.json())
-    //   .then((data) => setItems(data.items))
-    //   .catch((err) => console.error('Error fetching orders:', err));
     setItems(dummyItems);
+    setOrders(dummyOrders);
   };
 
   useEffect(() => {
@@ -93,7 +128,7 @@ function App() {
             <>
               <Route path="/" element={<OrdersPage items={items} addToCart={addToCart} />} />
               <Route path="/cart" element={<CartPage cart={cart} calculateTotal={calculateTotal} seatId={seatId} sessionId={sessionId} setCart={setCart} removeFromCart={removeFromCart} />} />
-              <Route path="/history" element={<OrderHistoryPage seatId={seatId} sessionId={sessionId} />} />
+              <Route path="/history" element={<OrderHistoryPage orders={orders} seatId={seatId} sessionId={sessionId} />} />
               <Route path="/checkout" element={<CheckoutPage seatId={seatId} sessionId={sessionId} />} />
             </>
           ) : (

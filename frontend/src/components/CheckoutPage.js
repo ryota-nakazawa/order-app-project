@@ -1,5 +1,42 @@
 import React, { useEffect, useState } from 'react';
 
+const dummyOrders = [
+  {
+    _id: 'order1',
+    seatId: '1',
+    sessionId: 'session1',
+    items: [
+      {
+        name: 'ラーメン',
+        price: 800,
+        description: '美味しいラーメンです。',
+        status: '準備中',
+        item_id: 'item1',
+        quantity: 1,
+      },
+    ],
+    createdAt: new Date(),
+    kaikei_status: '未会計',
+  },
+  {
+    _id: 'order2',
+    seatId: '2',
+    sessionId: 'session2',
+    items: [
+      {
+        name: '寿司',
+        price: 1200,
+        description: '新鮮なネタの寿司です。',
+        status: '準備中',
+        item_id: 'item2',
+        quantity: 2,
+      },
+    ],
+    createdAt: new Date(),
+    kaikei_status: '未会計',
+  },
+];
+
 const CheckoutPage = ({ seatId, sessionId }) => {
   const [orders, setOrders] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -7,10 +44,10 @@ const CheckoutPage = ({ seatId, sessionId }) => {
   useEffect(() => {
     const fetchOrderHistory = async () => {
       try {
-        const response = await fetch(`/api/orders/${seatId}/未会計`);
-        const data = await response.json();
-        setOrders(data.orders);
-        calculateTotalPrice(data.orders);
+        // 本来はAPIからデータを取得するが、ここではダミーデータを使用する
+        const filteredOrders = dummyOrders.filter(order => order.seatId === seatId);
+        setOrders(filteredOrders);
+        calculateTotalPrice(filteredOrders);
       } catch (error) {
         console.error('Error fetching order history:', error);
       }
@@ -31,24 +68,14 @@ const CheckoutPage = ({ seatId, sessionId }) => {
 
   const handleCheckout = async () => {
     try {
-      const response = await fetch(`/api/checkout`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ seatId }),
-      });
-      const data = await response.json();
-      if (data.success) {
-        alert('お会計が完了しました');
-        // お会計完了後の処理
-        const updatedOrders = orders.map(order => ({
-          ...order,
-          kaikei_status: order.seatId === seatId ? '会計済み' : order.kaikei_status
-        }));
-        setOrders(updatedOrders);
-        calculateTotalPrice(updatedOrders); // 会計後に合計金額を再計算
-      }
+      // 本来はAPIにPOSTリクエストを送るが、ここではダミーデータを更新する
+      const updatedOrders = orders.map(order => ({
+        ...order,
+        kaikei_status: order.seatId === seatId ? '会計済み' : order.kaikei_status
+      }));
+      setOrders(updatedOrders);
+      calculateTotalPrice(updatedOrders); // 会計後に合計金額を再計算
+      alert('お会計が完了しました');
     } catch (error) {
       console.error('Error during checkout:', error);
     }
@@ -82,7 +109,6 @@ const CheckoutPage = ({ seatId, sessionId }) => {
               ))}
             </ul>
             <h2>合計金額: {totalPrice} 円</h2>
-            {/* 会計ステータスが "会計済み" でない場合にボタンを表示 */}
             {orders.every(order => order.kaikei_status === '会計済み') ? (
               <p>すべての注文が会計済みです</p>
             ) : (
