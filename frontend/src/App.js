@@ -12,18 +12,41 @@ import Header from './components/Header'; // Headerをインポート
 import HamburgerMenu from './components/HamburgerMenu'; // HamburgerMenuをインポート
 import { v4 as uuidv4 } from 'uuid';
 
+const dummyItems = [
+  {
+    _id: '1',
+    name: 'ラーメン',
+    price: 800,
+    description: '美味しいラーメンです。',
+  },
+  {
+    _id: '2',
+    name: '寿司',
+    price: 1200,
+    description: '新鮮なネタの寿司です。',
+  },
+  {
+    _id: '3',
+    name: 'カレー',
+    price: 700,
+    description: 'スパイシーなカレーライスです。',
+  },
+];
+
 function App() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(dummyItems);
   const [cart, setCart] = useState([]);
   const [seatId, setSeatId] = useState('');
   const sessionId = "2";
   const [menuOpen, setMenuOpen] = useState(false);
 
   const fetchOrders = () => {
-    fetch('/api/items')
-      .then((res) => res.json())
-      .then((data) => setItems(data.items))
-      .catch((err) => console.error('Error fetching orders:', err));
+    // 本来はAPIからデータを取得するが、ここではダミーデータを使用する
+    // fetch('/api/items')
+    //   .then((res) => res.json())
+    //   .then((data) => setItems(data.items))
+    //   .catch((err) => console.error('Error fetching orders:', err));
+    setItems(dummyItems);
   };
 
   useEffect(() => {
