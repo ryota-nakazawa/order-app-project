@@ -36,14 +36,14 @@ const CartPage = ({ cart, calculateTotal, seatId, sessionId, setCart, removeFrom
 
   return (
     <div className="App">
-      <h1>カート</h1>
+      <h1>Cart</h1>
       <div className="base-container">
 
         <p>現在のカートの中身がここに表示されます</p>
-        <p>------------------------------------------------------------------------</p>
         <ul>
           {cart.map((item, index) => (
             <li key={index}>
+              <img src="/images/menu_bar.png" alt="bar" />
               <h3>{item.name}</h3>
               <p>値段: {item.price}</p>
               <p>個数: {item.quantity}</p>

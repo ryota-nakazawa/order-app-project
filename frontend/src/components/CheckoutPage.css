@@ -1,0 +1,40 @@
+  /* .base-container {
+    border: 1px solid #fff;
+    display: flex;
+} */
+  
+  .order-item {
+    background-color: white;
+    border: 1px solid white;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 5px;
+    border: none;
+  }
+  
+  .item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+  }
+  
+  .item h4 {
+    margin: 0 0 5px 0;
+  }
+  
+  h2 {
+    margin-top: 10px;
+  }
+  
+  .checkoutButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #F8C794;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .button:hover {
+    background-color: #D8AE7E;
+  }

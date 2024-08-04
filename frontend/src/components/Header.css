@@ -1,12 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1p&display=swap');
+
 .header {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  
 }
 
 .header h1 {
-  margin-right: 10px;
+  margin-right: 5px;
+  font-family: 'Gabriola','Comic Sans MS','Bradley Hand',sans-serif;
 }
 
 .header img {

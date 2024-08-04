@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './CheckoutPage.css';
 
 const dummyOrders = [
   {
@@ -83,15 +84,14 @@ const CheckoutPage = ({ seatId, sessionId }) => {
 
   return (
     <div className="App">
-      <h1>お会計</h1>
+      <h1>Checkout</h1>
       <div className="base-container">
-        <p>会計の詳細がここに表示されます</p>
-        <p>------------------------------------------------------------------------</p>
         {orders.length > 0 ? (
           <div>
             <ul>
               {orders.map((order, orderIndex) => (
                 <li key={orderIndex} className={`order-item ${order.kaikei_status === '会計済み' ? 'paid' : ''}`}>
+                  <img src="/images/menu_bar.png" alt="bar" />
                   <h3>注文番号: {order._id}</h3>
                   <p>席番号：{order.seatId}</p>
                   <p>会計ステータス: {order.kaikei_status}</p>
@@ -101,19 +101,18 @@ const CheckoutPage = ({ seatId, sessionId }) => {
                         <h4>{item.name}</h4>
                         <p>値段: {item.price}</p>
                         <p>個数: {item.quantity}</p>
-                        <p>説明: {item.description}</p>
                       </li>
                     ))}
                   </ul>
                 </li>
               ))}
             </ul>
-            <h2>合計金額: {totalPrice} 円</h2>
             {orders.every(order => order.kaikei_status === '会計済み') ? (
               <p>すべての注文が会計済みです</p>
             ) : (
-              <button onClick={handleCheckout}>お会計</button>
+              <button className="checkoutButton" onClick={handleCheckout}>お会計</button>
             )}
+            <h2>合計金額: {totalPrice} 円</h2>
           </div>
         ) : (
           <p> 座番号{seatId}にはまだ注文がありません</p>

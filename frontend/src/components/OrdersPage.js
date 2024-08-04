@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './OrderPage.css'; 
 
 const OrdersPage = ({ items, addToCart }) => {
   const [quantities, setQuantities] = useState({});
@@ -35,24 +36,25 @@ const OrdersPage = ({ items, addToCart }) => {
 
   return (
     <div className="App">
-      <h2>メニュー</h2>
+      <h2>Menu</h2>
       <div className="base-container">
-        <p>メニューの内容がここに表示されます</p>
-        <p>------------------------------------------------------------------------</p>
         {message && <div className="popup-message">{message}</div>}
         <ul>
           {items.map((item) => (
             <li key={item._id}>
+              <img src="/images/menu_bar.png" alt="bar" />
               <h3>{item.name}</h3>
-              <p>値段: {item.price}</p>
-              <p>説明: {item.description}</p>
+              <p>Price: {item.price}</p>
+              <p>Description: {item.description}</p>
               <div>
                 <span> 個数: {quantities[item._id]} </span>
                 <button type="button" onClick={() => incrementQuantity(item._id)}>+</button>
                 <span> / </span>
                 <button type="button" onClick={() => decrementQuantity(item._id)}>-</button>
               </div>
-              <button type="button" onClick={() => handleAddToCart(item)}>カートに追加</button>
+              <div className="button-container">
+              <button className="addCartButton" type="button" onClick={() => handleAddToCart(item)}>Add to cart</button>
+              </div>
             </li>
           ))}
         </ul>

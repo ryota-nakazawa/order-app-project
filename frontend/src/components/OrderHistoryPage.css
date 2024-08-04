@@ -1,22 +1,32 @@
 .base-container {
-  flex: 1;
-  overflow-y: auto;
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background: #fff;
+  border: 1px solid #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px;
 }
 
-/* .date-picker-container {
-  position: relative;
-  z-index: 1;
-  background-color: white;
+.custom-date-picker {
+  width: 100%;
+  max-width: 400px;
   padding: 10px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
-} */
+  font-size: 18px;
+}
+
+.date-picker-container {
+  background-color: white;
+  padding: 5px;
+  width: 140px;
+}
+
+ .display-All {
+  width: 150px;
+  padding: 5px;
+  font-size: 10px;
+  padding: 5px;
+  border: 1px solid #333; 
+  border-radius: 5px;
+}
 
 .popup-message {
   position: fixed;
@@ -24,9 +34,9 @@
   right: 20px;
   z-index: 1000;
   padding: 10px 20px;
-  background-color: #dff0d8;
-  color: #3c763d;
-  border: 1px solid #d6e9c6;
+  background-color: #DBB5B5;
+  color: white;
+  border: 1px solid #DBB5B5;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
