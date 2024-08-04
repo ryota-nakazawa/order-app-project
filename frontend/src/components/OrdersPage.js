@@ -44,7 +44,7 @@ const OrdersPage = ({ items, addToCart }) => {
 
   return (
     <div className="App">
-      <h2>メニュー</h2>
+      <h2>Menu</h2>
       <div className="base-container">
         {message && <div className="popup-message">{message}</div>} {/* ポップアップメッセージを表示 */}
         <ul>

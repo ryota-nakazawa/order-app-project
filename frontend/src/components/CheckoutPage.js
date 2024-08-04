@@ -57,7 +57,7 @@ const CheckoutPage = ({ seatId, sessionId }) => {
 
   return (
     <div className="App">
-      <h1>お会計</h1>
+      <h1>Checkout</h1>
       <div className="base-container">
         {orders.length > 0 ? (
           <div>
