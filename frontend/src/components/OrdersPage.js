@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './OrderPage.css';
 
 const OrdersPage = ({ items, addToCart }) => {
   // 商品ごとの数量を管理するための状態を追加
@@ -45,12 +46,11 @@ const OrdersPage = ({ items, addToCart }) => {
     <div className="App">
       <h2>メニュー</h2>
       <div className="base-container">
-        <p>メニューの内容がここに表示されます</p>
-        <p>------------------------------------------------------------------------</p>
         {message && <div className="popup-message">{message}</div>} {/* ポップアップメッセージを表示 */}
         <ul>
           {items.map((item) => (
             <li key={item._id}>
+              <img src="/images/menu_bar.png" alt="bar" />
               <h3>{item.name}</h3>
               <p>値段: {item.price}</p>
               <p>説明: {item.description}</p>
@@ -60,7 +60,9 @@ const OrdersPage = ({ items, addToCart }) => {
                 <span> / </span>
                 <button type="button" onClick={() => decrementQuantity(item._id)}>-</button>
               </div>
-              <button type="button" onClick={() => handleAddToCart(item)}>カートに追加</button>
+              <div className="button-container">
+                <button className="addCartButton" type="button" onClick={() => handleAddToCart(item)}>Add to cart</button>
+              </div>
             </li>
           ))}
         </ul>

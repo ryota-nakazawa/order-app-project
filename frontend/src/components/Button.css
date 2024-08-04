@@ -16,21 +16,21 @@ button:hover {
 
 .remove-button,
 .confirm-button {
-  padding: 12px 24px;
-  font-size: 16px;
-  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: 18px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .remove-button {
-  background-color: #FF5733;
+  background-color: #C68484;
   color: white;
 }
 
 .remove-button:hover {
-  background-color: #C70039;
+  background-color: #9B4444;
 }
 
 .confirm-button {

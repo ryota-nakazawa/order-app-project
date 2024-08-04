@@ -1,7 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import moment from 'moment-timezone';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './OrderHistoryPage.css';
+
+// 日付をJSTに変換
+const DatePickerComponent = () => {
+  const [selectedDate, setSelectedDate] = useState(null);
+
+  const handleDateChange = (date) => {
+    if (date) {
+      const jstDate = moment(date).tz('Asia/Tokyo').toDate();
+      setSelectedDate(jstDate);
+    } else {
+      setSelectedDate(null);
+    }
+  }
+}
 
 const OrderHistoryPage = ({ seatId, sessionId }) => {
   const [orders, setOrders] = useState([]);
@@ -90,26 +105,27 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
 
   return (
     <div className="App">
-      <h1>注文履歴</h1>
+      <h1>Order History</h1>
       <div className="base-container">
+        <p>日付を選択してください: </p>
         <div className="date-picker-container">
-          <label htmlFor="date-picker">日付を選択してください: </label>
           <div className="date-picker-wrapper">
             <DatePicker
               id="date-picker"
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
+              className="custom-date-picker"
               dateFormat="yyyy/MM/dd"
             />
           </div>
-          <button onClick={handleShowAll}>全期間の売上を表示</button>
         </div>
-        <p>------------------------------------------------------------------------</p>
+        <button className="display-All" onClick={handleShowAll}>全期間の売上を表示</button>
         {Object.keys(groupedOrders).length > 0 ? (
           Object.keys(groupedOrders).map(key => {
             const [seatId, sessionId] = key.split('-');
             return (
               <div key={key} className="seat-group">
+                <img src="/images/menu_bar.png" alt="bar" />
                 <h2>席番号: {seatId}</h2>
                 <ul>
                   {groupedOrders[key].map((order, orderIndex) => (

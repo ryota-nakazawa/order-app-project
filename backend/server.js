@@ -48,7 +48,7 @@ app.get('/api/orders', async (req, res) => {
       const startDate = new Date(date);
       console.log(startDate);
       // 日本標準時（JST）をUTCに変換
-      const utcStartDate = new Date(startDate.getTime() + (15 * 60 * 60 * 1000));
+      const utcStartDate = new Date(startDate.getTime() - (9 * 60 * 60 * 1000));
       const utcEndDate = new Date(utcStartDate.getTime());
       utcEndDate.setDate(utcEndDate.getDate() + 1);
       console.log(utcStartDate);

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import './CheckoutPage.css';
 
 const CheckoutPage = ({ seatId, sessionId }) => {
   const [orders, setOrders] = useState([]);
@@ -58,8 +59,6 @@ const CheckoutPage = ({ seatId, sessionId }) => {
     <div className="App">
       <h1>お会計</h1>
       <div className="base-container">
-        <p>会計の詳細がここに表示されます</p>
-        <p>------------------------------------------------------------------------</p>
         {orders.length > 0 ? (
           <div>
             <ul>
