@@ -33,6 +33,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    border-radius: 5px;
+    display: block;
+    margin: auto;
   }
 
   .button:hover {
