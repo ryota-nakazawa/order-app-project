@@ -4,20 +4,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './OrderHistoryPage.css';
 
-// 日付をJSTに変換
-const DatePickerComponent = () => {
-  const [selectedDate, setSelectedDate] = useState(null);
-
-  const handleDateChange = (date) => {
-    if (date) {
-      const jstDate = moment(date).tz('Asia/Tokyo').toDate();
-      setSelectedDate(jstDate);
-    } else {
-      setSelectedDate(null);
-    }
-  }
-}
-
 const OrderHistoryPage = ({ seatId, sessionId }) => {
   const [orders, setOrders] = useState([]);
   const [groupedOrders, setGroupedOrders] = useState({});
@@ -103,6 +89,45 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
     fetchOrderHistory(new Date(), true);
   };
 
+  const convertToCSV = (array) => {
+    const keys = Object.keys(array[0]);
+    const csv = [
+      keys.join(','), // ヘッダー行
+      ...array.map(row => keys.map(key => row[key]).join(',')) // データ行
+    ].join('\n');
+
+    return csv;
+  };
+
+  const downloadCSV = () => {
+    const flatOrders = orders.flatMap(order =>
+      order.items.map(item => ({
+        '注文番号': order._id,
+        '席番号': order.seatId,
+        'セッションID': order.sessionId,
+        '商品名': item.name,
+        '値段': item.price,
+        '個数': item.quantity,
+        '説明': item.description,
+        '提供状況': item.status,
+        '注文時間': new Date(order.createdAt).toLocaleString(),
+        '会計状況': order.kaikei_status
+      }))
+    );
+
+    const csv = convertToCSV(flatOrders);
+    const totalRow = `,,,"合計金額",${totalPrice}`;
+    const finalCSV = `${csv}\n${totalRow}`;
+    const blob = new Blob([finalCSV], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'order_history.csv');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="App">
       <h1>Order History</h1>
@@ -120,6 +145,7 @@ const OrderHistoryPage = ({ seatId, sessionId }) => {
           </div>
         </div>
         <button className="display-All" onClick={handleShowAll}>全期間の売上を表示</button>
+        <button onClick={downloadCSV}>CSVとしてダウンロード</button> {/* CSVダウンロードボタン */}
         {Object.keys(groupedOrders).length > 0 ? (
           Object.keys(groupedOrders).map(key => {
             const [seatId, sessionId] = key.split('-');
